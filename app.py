@@ -1,3 +1,5 @@
+from email.message import Message
+
 from flask import Flask, render_template, request, redirect, url_for
 import sqlite3
 
@@ -24,21 +26,17 @@ def create_table():
 
 @app.route('/')
 def home():
-    return redirect(url_for('signup'))
+    return render_template('homepage.html')
 
-@app.route('/signup', methods=['GET', 'POST'])
+@app.route('/signup')
 def signup():
-    if request.method == 'POST':
-        username = request.form.get('username')
-        email = request.form.get('email')
-        password = request.form.get('password')
-        print(f"User registered: {username}, {email}")
-        return redirect(url_for('signup'))
+
     return render_template('signup.html')
 
 @app.route('/login')
 def login():
-    return render_template('login.html')
+    return render_template("login.html")
+
 
 if __name__ == '__main__':
-    app.run(debug=True)
+        app.run(debug=True)

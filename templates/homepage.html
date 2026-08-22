@@ -1,13 +1,25 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, intial-scale=1.0">
-        <title>Home</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<head>
+    <title>UniUyo Data Science</title>
+     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
 
-    </head>
-    <body>
+<body>
+
+    
+    <div style="background-color: rgba(0,0,0,0.8); padding:15px; display:flex; justify-content:space-between; align-items:center;">
+        <h2 style="margin:0;">Uniuyo market</h2>
         
-    </body>
+        <div>
+            <a href="login" style="color:white; margin:10px; text-decoration:none;">Login</a>
+            <a href="signup" style="color:white; margin:10px; text-decoration:none;">Sign Up</a>
+
+        </div>
+    </div>
+
+
+</body>
 </html>
