@@ -33,7 +33,7 @@
 
 .input-group input {
   width: 100%;
-  padding: 14px 16px;
+  padding: 10px 12px;
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 8px;
@@ -47,4 +47,26 @@
   border-color: rgba(120, 255, 150, 0.8);
   background: rgba(255, 255, 255, 0.15);
   box-shadow: 0 0 12px rgba(120, 255, 150, 0.3);
+}
+.login-btn{
+  background: linear-gradient(135deg, #00c853, #00e676);
+  color: #0a0a0a;
+  font-weight: 700;
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  letter-spacing: 0.5;
+  box-shadow: o 4px 15px rgba(0, 230, 118, 0.4);
+  transition: all 0.3s ease;
+
+}
+.login-btn:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 2px 10px rgba(0, 230, 118, 0.6);
+}
+.login-btn:active{
+  transform:translateY(0);
+  box-shadow: 0 2px 10px rgba(0, 230, 118, 0.3);
 }
