@@ -1,25 +1,54 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>UniUyo Data Science</title>
+    <title>UniUyo</title>
      <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width initial-scale=1">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
-<body>
+<body class="homepage-background">
 
-    
-    <div>
-        <h1>UniUyo Market</h1>
-        
-        <div>
-            <a href="login">Login</a>
-            <a href="signup">Sign Up</a>
+<div class="announcement-bar">
+  Welcome to Uniuyo Market — Buy, Sell & Connect
+</div>
 
-        </div>
-    </div>
 
+<nav class="navbar">
+  <div class="logo">Uniuyo Market</div>
+  <ul class="nav-links">
+    <li class="navbartxt"><a href="shop">Shop</a></li>
+    <li class="navbartxt"><a href="roommates">Roommates</a></li>
+    <li class="navbartxt"><a href="sell">Sell</a></li>
+    <li class="navbartxt"><a href="login">Login</a></li>
+    <li class="navbartxt"><a href="signup">Sign Up</a></li>
+  </ul>
+</nav>
+
+
+<section class="hero">
+  <h1>Everything you need, from fellow students</h1>
+  <p>Buy and sell items easily within your campus community</p>
+  <a href="/browse"><button class="login-btn">Browse Listings</button></a>
+</section>
+
+<section class="categories">
+  <div class="category-tile">Electronics</div>
+  <div class="category-tile">Books</div>
+  <div class="category-tile">Fashion</div>
+  <div class="category-tile">Roommates</div>
+</section>
+
+
+<section class="listings-grid">
+  {% for item in listings %}
+  <div class="listing-card">
+    <img src="{{ item.image }}" alt="{{ item.title }}">
+    <h3>{{ item.title }}</h3>
+    <p>₦{{ item.price }}</p>
+  </div>
+  {% endfor %}
+</section>
 
 </body>
 </html>
