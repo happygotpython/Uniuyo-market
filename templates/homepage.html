@@ -3,7 +3,7 @@
 <head>
     <title>UniUyo</title>
      <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
@@ -22,6 +22,7 @@
     <li class="navbartxt"><a href="sell">Sell</a></li>
     <li class="navbartxt"><a href="login">Login</a></li>
     <li class="navbartxt"><a href="signup">Sign Up</a></li>
+    <li><button id="theme-toggle">🌙</button></li>
   </ul>
 </nav>
 
@@ -29,14 +30,14 @@
 <section class="hero">
   <h1>Everything you need, from fellow students</h1>
   <p>Buy and sell items easily within your campus community</p>
-  <a href="/browse"><button class="login-btn">Browse Listings</button></a>
+  <a href="/shop"><button class="login-btn">Browse Listings</button></a>
 </section>
 
 <section class="categories">
-  <div class="category-tile">Electronics</div>
-  <div class="category-tile">Books</div>
-  <div class="category-tile">Fashion</div>
-  <div class="category-tile">Roommates</div>
+  <div class="category-tile"><a href="electronics">Electronics</a></div>
+  <div class="category-tile"><a href="books">Books</a></div>
+  <div class="category-tile"><a href="fashion">Fashion</a></div>
+  <div class="category-tile"><a href="roommates">Roommates</a></div>
 </section>
 
 
@@ -49,6 +50,6 @@
   </div>
   {% endfor %}
 </section>
-
+<script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

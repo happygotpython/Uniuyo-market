@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html> 
+<head>
+    <title>UniUyo - Shop</title>
+     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="logo">Uniuyo Market</div>
+  <ul class="nav-links">
+    <li class="navbartxt"><a href="/">Home</a></li>
+    <li class="navbartxt"><a href="/roommates">Roommates</a></li>
+    <li class="navbartxt"><a href="/sell">Sell</a></li>
+    <li class="navbartxt"><a href="/login">Login</a></li>
+    <li class="navbartxt"><a href="/signup">Sign Up</a></li>
+  </ul>
+</nav>
+
+<section class="listings-grid">
+  {% for item in listings %}
+  <div class="listing-card">
+    <img src="{{ item['image'] }}" alt="{{ item['name'] }}">
+    <h3>{{ item['name'] }}</h3>
+    <p>₦{{ item['price'] }}</p>
+  </div>
+  {% else %}
+  <p>No products available yet.</p>
+  {% endfor %}
+</section>
+
+</body>
+</html>

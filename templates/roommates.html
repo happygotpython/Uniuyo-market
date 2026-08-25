@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>UniUyo - Roommates</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="logo">Uniuyo Market</div>
+  <ul class="nav-links">
+    <li class="navbartxt"><a href="/">Home</a></li>
+    <li class="navbartxt"><a href="/shop">Shop</a></li>
+    <li class="navbartxt"><a href="/roommates">Roommates</a></li>
+    <li class="navbartxt"><a href="/login">Login</a></li>
+    <li class="navbartxt"><a href="/signup">Sign Up</a></li>
+    <li><button id="theme-toggle">🌙</button></li>
+  </ul>
+</nav>
+
+<h1>Find Your Perfect Roommate</h1>
+
+<div style="text-align: center; margin-bottom: 20px;">
+  <a href="/post-roommate" class="cta-btn">Post Your Listing</a>
+</div>
+
+<form method="GET" action="/roommates" class="search-bar">
+  <input type="text" name="q" placeholder="Search by name or bio..." value="{{ request.args.get('q', '') }}">
+  <select name="level">
+    <option value="">All Levels</option>
+    <option value="100L">100L</option>
+    <option value="200L">200L</option>
+    <option value="300L">300L</option>
+    <option value="400L">400L</option>
+    <option value="500L">500L</option>
+  </select>
+  <button type="submit">Search</button>
+</form>
+
+<section class="roommates-grid">
+  {% for r in roommates %}
+  <div class="roommate-card">
+    <img src="{{ url_for('static', filename=r['image']) }}" alt="{{ r['name'] }}">
+    <h3>{{ r['name'] }}</h3>
+    <p>Level: {{ r['level'] }}</p>
+    <p>{{ r['bio'] }}</p>
+  </div>
+  {% else %}
+  <p>No roommate listings match your search.</p>
+  {% endfor %}
+</section>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

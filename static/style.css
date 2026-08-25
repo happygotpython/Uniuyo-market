@@ -1,3 +1,22 @@
+:root {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+  --card-bg: #f5f5f5;
+}
+
+body.dark-mode {
+  --bg-color: #121212;
+  --text-color: #f5f5f5;
+  --card-bg: #1e1e1e;
+}
+
+body {
+  background: var(--bg-color);
+  color: var(--text-color);
+  transition: background 0.3s ease, color 0.3s ease;
+  margin: 0;
+}
+
 .background {
     background-color: black;
     background-size: cover;
@@ -7,7 +26,7 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    margin: 0s;
+    margin: 0;
 }
 
 .text{
@@ -16,6 +35,7 @@
     text-align: center;
     padding: 20px;
 }
+
 .login-container{
     background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(10px);
@@ -48,6 +68,7 @@
   background: rgba(255, 255, 255, 0.15);
   box-shadow: 0 0 12px rgba(120, 255, 150, 0.3);
 }
+
 .login-btn{
   background: linear-gradient(135deg, #00c853, #00e676);
   color: #0a0a0a;
@@ -57,19 +78,21 @@
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  letter-spacing: 0.5;
+  letter-spacing: 0.5px;
   box-shadow: 0 4px 15px rgba(0, 230, 118, 0.4);
   transition: all 0.3s ease;
-
 }
+
 .login-btn:hover{
   transform: translateY(-2px);
   box-shadow: 0 2px 10px rgba(0, 230, 118, 0.6);
 }
+
 .login-btn:active{
-  transform:translateY(0);
+  transform: translateY(0);
   box-shadow: 0 2px 10px rgba(0, 230, 118, 0.3);
 }
+
 .announcement-bar {
   background: #000;
   color: #fff;
@@ -83,27 +106,28 @@
   justify-content: space-between;
   align-items: center;
   padding: 16px 40px;
+  background: var(--bg-color);
 }
 
 .nav-links {
   display: flex;
   list-style: none;
   gap: 24px;
- 
 }
+
 .nav-links a {
   text-decoration: none;
-  color: #000; 
+  color: var(--text-color);
   font-size: 20px;
   font-weight: bold;
   border-radius: 5px;
-  text-decoration: none;
 }
 
 .hero {
   text-align: center;
   padding: 80px 20px;
-  background: #f5f5f5;
+  background: var(--card-bg);
+  color: var(--text-color);
 }
 
 .cta-btn {
@@ -114,6 +138,8 @@
   border-radius: 6px;
   font-weight: 700;
   cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
 }
 
 .categories {
@@ -121,13 +147,21 @@
   justify-content: center;
   gap: 20px;
   padding: 40px;
+  text-decoration: none;
+  color: var(--text-color);
 }
 
 .category-tile {
-  background: #eee;
+  background: var(--card-bg);
   padding: 20px 30px;
   border-radius: 8px;
   cursor: pointer;
+  color: var(--text-color);
+}
+
+.category-tile a{
+  text-decoration: none;
+  color: var(--text-color);
 }
 
 .listings-grid {
@@ -139,11 +173,130 @@
 
 .listing-card {
   border: 1px solid #ddd;
+  background: var(--card-bg);
+  color: var(--text-color);
   border-radius: 8px;
   padding: 12px;
   text-align: center;
 }
 
 .homepage-background{
-  background-image: url('../static/images/trial.jpg');
+  background-image: url('images/trial.jpg');
+}
+
+* {
+  box-sizing: border-box;
+}
+
+#body-for-roomates {
+  width: 100%;
+  min-height: 100vh;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  background-color: rgb(9, 9, 73);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.roommates-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  padding: 40px;
+}
+
+.roommate-card {
+  background: var(--card-bg);
+  color: var(--text-color);
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.roommate-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.roommate-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 12px;
+}
+
+.roommate-card h3 {
+  margin: 8px 0 4px;
+}
+
+.search-bar {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  padding: 20px 40px;
+  flex-wrap: wrap;
+}
+
+.search-bar input[type="text"] {
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  flex: 1;
+  min-width: 200px;
+}
+
+.search-bar select {
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+.search-bar button {
+  background: #00c853;
+  color: #fff;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+
+form label {
+  font-weight: 600;
+  display: block;
+  margin-top: 12px;
+}
+
+form input[type="text"],
+form select,
+form textarea {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  margin-top: 4px;
+}
+
+form {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 24px;
+  background: var(--card-bg);
+  border-radius: 10px;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 30px;
+  color: var(--text-color);
 }
