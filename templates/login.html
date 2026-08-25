@@ -1,27 +1,31 @@
 <!DOCTYPE html>
 <html>
-    <head >
+    <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Login</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-        </head>
+    </head>
 
 <body class="background">
     <div class="login-container">
         <h1 class="text">Login</h1>
 
+        {% if error %}
+        <p class="error-message">{{ error }}</p>
+        {% endif %}
+
+        <form method="POST" action="/login">
             <label for="email">Email:</label>
-    <div class="input-group">
-        <input type="email" id="email" name="email" required>
-    </div>
+            <div class="input-group">
+                <input type="email" id="email" name="email" required>
+            </div>
 
             <label for="password">Password:</label>
             <div class="input-group">
                 <input type="password" id="password" name="password" required>
             </div>
             <br><br>
-            
 
             <button class="login-btn" type="submit">Login</button>
         </form>

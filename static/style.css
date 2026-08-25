@@ -18,10 +18,9 @@ body {
 }
 
 .background {
-    background-color: black;
+    background-color: #0a0a0a;
     background-size: cover;
     background-position: center;
-    color: green;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -37,13 +36,13 @@ body {
 }
 
 .login-container{
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.92);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.4);
     border-radius: 12px;
     padding: 40px 70px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
 }
 
 .input-group {
@@ -51,22 +50,29 @@ body {
   margin-bottom: 20px;
 }
 
+.input-group label {
+  display: block;
+  margin-bottom: 6px;
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
 .input-group input {
   width: 100%;
   padding: 10px 12px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 8px;
-  color: #fff;
+  color: #212020;
   font-size: 15px;
   outline: none;
   transition: all 0.3s ease;
 }
 
 .input-group input:focus {
-  border-color: rgba(120, 255, 150, 0.8);
-  background: rgba(255, 255, 255, 0.15);
-  box-shadow: 0 0 12px rgba(120, 255, 150, 0.3);
+  border-color: rgba(0, 200, 83, 0.8);
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 0 12px rgba(0, 200, 83, 0.3);
 }
 
 .login-btn{
@@ -268,7 +274,6 @@ body {
   cursor: pointer;
 }
 
-
 form label {
   font-weight: 600;
   display: block;
@@ -299,4 +304,14 @@ h1 {
   text-align: center;
   margin-top: 30px;
   color: var(--text-color);
+}
+.error-message {
+  color: #ff5252;
+  background: rgba(255, 82, 82, 0.1);
+  border: 1px solid rgba(255, 82, 82, 0.4);
+  padding: 10px 14px;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 16px;
+  font-size: 14px;
 }
