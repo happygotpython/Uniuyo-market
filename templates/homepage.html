@@ -42,15 +42,7 @@
 </section>
 
 
-<section class="listings-grid">
-  {% for item in listings %}
-  <div class="listing-card">
-    <img src="{{ item.image }}" alt="{{ item.title }}">
-    <h3>{{ item.title }}</h3>
-    <p>₦{{ item.price }}</p>
-  </div>
-  {% endfor %}
-</section>
+
 <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

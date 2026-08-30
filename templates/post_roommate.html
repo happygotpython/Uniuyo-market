@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>UniUyo - Post Roommate Listing</title>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Roommate - UniUyo Market</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
@@ -14,37 +14,93 @@
     <li class="navbartxt"><a href="/">Home</a></li>
     <li class="navbartxt"><a href="/shop">Shop</a></li>
     <li class="navbartxt"><a href="/roommates">Roommates</a></li>
-    <li class="navbartxt"><a href="/login">Login</a></li>
-    <li class="navbartxt"><a href="/signup">Sign Up</a></li>
+    {% if session.get('user_id') %}
+      <li class="navbartxt"><a href="/logout">Logout ({{ session['username'] }})</a></li>
+    {% else %}
+      <li class="navbartxt"><a href="/login">Login</a></li>
+      <li class="navbartxt"><a href="/signup">Sign Up</a></li>
+    {% endif %}
+    <li class="navbartxt"><a href="/wallet">Wallet</a></li>
     <li><button id="theme-toggle">🌙</button></li>
   </ul>
 </nav>
 
-<h1>Post a Roommate Listing</h1>
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="flash-container">
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
 
-<form method="POST" action="/post-roommate">
-  <label for="name">Name:</label>
-  <input type="text" id="name" name="name" required>
+<div class="form-wrapper">
+    <div class="form-card">
+        <div class="form-header">
+            <h1>Post a Roommate Listing</h1>
+            <p>Connect with potential roommates across campus</p>
+        </div>
 
-  <label for="level">Level:</label>
-  <select id="level" name="level" required>
-    <option value="100L">100L</option>
-    <option value="200L">200L</option>
-    <option value="300L">300L</option>
-    <option value="400L">400L</option>
-    <option value="500L">500L</option>
-  </select>
+        <form action="/post-roommate" method="POST" enctype="multipart/form-data" class="styled-form">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" placeholder="e.g. John Doe" required>
+            </div>
 
-  <label for="bio">Bio:</label>
-  <textarea id="bio" name="bio" rows="4" placeholder="Tell others about yourself..."></textarea>
+            <div class="form-group">
+                <label for="level">Academic Level</label>
+                <select id="level" name="level" required>
+                    <option value="" disabled selected>Select level...</option>
+                    <option value="100L">100L</option>
+                    <option value="200L">200L</option>
+                    <option value="300L">300L</option>
+                    <option value="400L">400L</option>
+                    <option value="500L">500L</option>
+                </select>
+            </div>
 
-  <label for="contact">Contact (email or phone):</label>
-  <input type="text" id="contact" name="contact" required>
+            <div class="form-group">
+                <label>Profile Picture</label>
+                <div class="file-upload-box">
+                    <input type="file" id="image" name="image" accept="image/png, image/jpeg, image/webp" class="file-input">
+                    <div class="upload-content">
+                        <span class="upload-icon">📷</span>
+                        <p class="upload-text">Click to upload photo or drag & drop</p>
+                        <span class="file-name" id="file-name">No file selected</span>
+                    </div>
+                </div>
+            </div>
 
-  <br><br>
-  <a href="/roommates"><button type="submit" class="login-btn">Post Listing</button></a>
-</form>
+            <div class="form-group">
+                <label for="bio">Bio</label>
+                <textarea id="bio" name="bio" rows="4" placeholder="Tell others about your habits, lifestyle, or apartment details..." required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="contact">Contact Information</label>
+                <input type="text" id="contact" name="contact" placeholder="Phone Number or WhatsApp link or Email" required>
+            </div>
+
+            <button type="submit" class="login-btn submit-btn">Post Listing</button>
+        </form>
+    </div>
+</div>
 
 <script src="{{ url_for('static', filename='script.js') }}"></script>
+<script>
+  const fileInput = document.getElementById('image');
+  const fileNameDisplay = document.getElementById('file-name');
+
+  if (fileInput) {
+    fileInput.addEventListener('change', (e) => {
+      if (e.target.files.length > 0) {
+        fileNameDisplay.textContent = e.target.files[0].name;
+      }
+    });
+  }
+</script>
 </body>
 </html>

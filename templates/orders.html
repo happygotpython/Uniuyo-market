@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Orders - UniUyo Market</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="logo">My Market</div>
+  <ul class="nav-links">
+    <li class="navbartxt"><a href="/shop">Shop</a></li>
+    <li class="navbartxt"><a href="/wallet">Wallet</a></li>
+    <li class="navbartxt"><a href="/logout">Logout</a></li>
+  </ul>
+</nav>
+
+<h1>My Purchases</h1>
+<div class="listings-grid">
+  {% for order in purchases %}
+  <div class="listing-card">
+    <h3>{{ order['product_name'] }}</h3>
+    <p>₦{{ "%.2f"|format(order['price']) }}</p>
+    <p>{{ order['created_at'] }}</p>
+  </div>
+  {% else %}
+  <p style="text-align:center; grid-column:1/-1;">No purchases yet.</p>
+  {% endfor %}
+</div>
+
+<h1>My Sales</h1>
+<div class="listings-grid">
+  {% for order in sales %}
+  <div class="listing-card">
+    <h3>{{ order['product_name'] }}</h3>
+    <p>Sold for ₦{{ "%.2f"|format(order['price']) }}</p>
+    <p>You earned ₦{{ "%.2f"|format(order['seller_payout']) }}</p>
+    <p>{{ order['created_at'] }}</p>
+  </div>
+  {% else %}
+  <p style="text-align:center; grid-column:1/-1;">No sales yet.</p>
+  {% endfor %}
+</div>
+
+</body>
+</html>

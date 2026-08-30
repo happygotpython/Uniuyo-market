@@ -3,24 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sell Your Items</title>
+    <title>Sell Item - UniUyo Market</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Sell Your Items</h1>
-    <form action="/sell" method="post">
-        <label for="item-name">Item Name:</label>
-        <input type="text" id="item-name" name="item-name" required>
-        <br><br>
-        <label for="item-description">Description:</label>
-        <textarea id="item-description" name="item-description" required></textarea>
-        <br><br>
-        <label for="item-price">Price:</label>
-        <input type="number" id="item-price" name="item-price" step="0.01" required>
-        <br><br>
-        <label for="item-image">Image:</label>
-        <input type="file" id="item-image" name="item-image" accept="image/*">
-        <br><br>
-        <button type="submit">List Item</button>
-    </form>
+
+<nav class="navbar">
+  <div class="logo">My Market</div>
+  <ul class="nav-links">
+    <li class="navbartxt"><a href="/">Home</a></li>
+    <li class="navbartxt"><a href="/shop">Shop</a></li>
+    <li class="navbartxt"><a href="/roommates">Roommates</a></li>
+    {% if session.get('user_id') %}
+      <li class="navbartxt"><a href="/logout">Logout ({{ session['username'] }})</a></li>
+    {% else %}
+      <li class="navbartxt"><a href="/login">Login</a></li>
+      <li class="navbartxt"><a href="/signup">Sign Up</a></li>
+    {% endif %}
+    <li class="navbartxt"><a href="{{ url_for('wallet') }}">Wallet</a></li>
+    <li><button id="theme-toggle">🌙</button></li>
+  </ul>
+</nav>
+
+<div class="form-wrapper">
+    <div class="form-card">
+        <div class="form-header">
+            <h1>List an Item for Sale</h1>
+            <p>Reach thousands of students across campus</p>
+        </div>
+
+        <form action="/sell" method="POST" enctype="multipart/form-data" class="styled-form">
+            <div class="form-group">
+                <label for="name">Item Title</label>
+                <input type="text" id="name" name="name" placeholder="e.g. Scientific Calculator, HP Laptop..." required>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group half">
+                    <label for="price">Price (₦)</label>
+                    <input type="number" id="price" name="price" step="0.01" placeholder="0.00" required>
+                </div>
+
+                <div class="form-group half">
+                    <label for="quantity">Quantity</label>
+                    <input type="number" id="quantity" name="quantity" value="1" min="1" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="category">Category</label>
+                <select id="category" name="category" required>
+                    <option value="" disabled selected>Select category...</option>
+                    <option value="Electronics">Electronics</option>
+                    <option value="Books">Books</option>
+                    <option value="Fashion">Fashion</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Product Image</label>
+                <div class="file-upload-box">
+                    <input type="file" id="image" name="image" accept="image/png, image/jpeg, image/webp" class="file-input">
+                    <div class="upload-content">
+                        <span class="upload-icon">📷</span>
+                        <p class="upload-text">Click to choose image or drag & drop</p>
+                        <span class="file-name" id="file-name">No file selected</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" name="description" rows="4" placeholder="Describe condition, specs, or pick-up locations..." required></textarea>
+            </div>
+
+            <button type="submit" class="login-btn submit-btn">Publish Listing</button>
+        </form>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+<script>
+  const fileInput = document.getElementById('image');
+  const fileNameDisplay = document.getElementById('file-name');
+
+  if (fileInput) {
+    fileInput.addEventListener('change', (e) => {
+      if (e.target.files.length > 0) {
+        fileNameDisplay.textContent = e.target.files[0].name;
+      }
+    });
+  }
+</script>
 </body>
-</html>`
+</html>

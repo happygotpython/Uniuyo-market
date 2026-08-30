@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ product['name'] }} - UniUyo Market</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="logo">My Market</div>
+  <ul class="nav-links">
+    <li class="navbartxt"><a href="/shop">Back to Shop</a></li>
+  </ul>
+</nav>
+
+<div class="product-detail-container">
+    <img src="{{ url_for('static', filename=product['image']) }}" alt="{{ product['name'] }}">
+    <div class="product-info">
+        <h1>{{ product['name'] }}</h1>
+        <p class="category-tag">{{ product['category'] }}</p>
+        <h2>₦{{ product['price'] }}</h2>
+        <p><strong>Available Stock:</strong> {{ product['quantity'] }}</p>
+        <p>{{ product['description'] }}</p>
+        
+        {% if product['quantity'] > 0 %}
+            <form action="/buy/{{ product['id'] }}" method="POST">
+                <button type="submit" class="login-btn">Buy Now</button>
+            </form>
+        {% else %}
+            <button class="login-btn disabled" disabled>Out of Stock</button>
+        {% endif %}
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

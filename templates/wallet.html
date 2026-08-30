@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Wallet - UniUyo Market</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="logo">My Market</div>
+  <ul class="nav-links">
+    <li class="navbartxt"><a href="/shop">Shop</a></li>
+    <li class="navbartxt"><a href="/orders">My Orders</a></li>
+    <li class="navbartxt"><a href="/wallet">Wallet</a></li>
+    <li class="navbartxt"><a href="/logout">Logout</a></li>
+  </ul>
+</nav>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="flash-container">
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+<div class="dashboard-container">
+
+    <div class="wallet-banner-card">
+        <span class="wallet-label">Available Balance</span>
+        <h1 class="wallet-amount">₦{{ "%.2f"|format(balance) }}</h1>
+    </div>
+
+    <div class="wallet-grid">
+        <div class="action-card">
+            <div class="card-header">
+                <h3>Deposit Funds</h3>
+                <p>Top up your account balance to buy items.</p>
+            </div>
+            <form action="/topup" method="POST">
+                <div class="form-group">
+                    <label for="topup_amount">Deposit Amount (₦)</label>
+                    <input type="number" id="topup_amount" name="amount" step="0.01" min="1" placeholder="e.g. 5,000" required>
+                </div>
+                <button type="submit" class="action-btn green-btn">Deposit Funds</button>
+            </form>
+        </div>
+
+        <div class="action-card">
+            <div class="card-header">
+                <h3>Request Withdrawal</h3>
+                <p>Transfer earnings directly to your bank account.</p>
+            </div>
+            <form action="/wallet" method="POST">
+                <div class="form-group">
+                    <label for="amount">Amount (₦)</label>
+                    <input type="number" id="amount" name="amount" step="0.01" max="{{ balance }}" placeholder="e.g. 2,500" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="bank_name">Bank Name</label>
+                    <input type="text" id="bank_name" name="bank_name" placeholder="e.g. Kuda, Access Bank, OPay" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="account_number">Account Number</label>
+                    <input type="text" id="account_number" name="account_number" maxlength="10" placeholder="e.g. 0123456789" required>
+                </div>
+
+                <button type="submit" class="action-btn blue-btn">Request Payout</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="history-card">
+        <h3>Payout History</h3>
+        <div class="history-table-wrapper">
+            <ul class="history-list">
+                {% for item in history %}
+                    <li class="history-item">
+                        <div class="history-details">
+                            <span class="history-amount">₦{{ "%.2f"|format(item['amount']) }}</span>
+                            <span class="history-meta">{{ item['bank_name'] }} • {{ item['account_number'] }}</span>
+                        </div>
+                        <span class="status-badge status-{{ item['status']|lower }}">
+                            {{ item['status'] }}
+                        </span>
+                    </li>
+                {% else %}
+                    <p class="no-history">No withdrawal requests yet.</p>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

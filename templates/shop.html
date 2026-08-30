@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html> 
 <head>
-    <title>UniUyo - Shop</title>
-     <meta charset="UTF-8">
+    <title>My - Shop</title>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
@@ -13,23 +13,56 @@
   <ul class="nav-links">
     <li class="navbartxt"><a href="/">Home</a></li>
     <li class="navbartxt"><a href="/roommates">Roommates</a></li>
-    <li class="navbartxt"><a href="/sell">Sell</a></li>
-    <li class="navbartxt"><a href="/login">Login</a></li>
-    <li class="navbartxt"><a href="/signup">Sign Up</a></li>
+    <li class="navbartxt"><a href="/sell">Sell Item</a></li>
+    {% if session.get('user_id') %}
+      <li class="navbartxt"><a href="/logout">Logout ({{ session['username'] }})</a></li>
+    {% else %}
+      <li class="navbartxt"><a href="/login">Login</a></li>
+      <li class="navbartxt"><a href="/signup">Sign Up</a></li>
+    {% endif %}
+    <li class="navbartxt"><a href="{{ url_for('wallet') }}">Wallet</a></li>
+    <li class="navbartxt"><a href="/orders">My Orders</a></li>
+    <li><button id="theme-toggle">🌙</button></li>
   </ul>
 </nav>
+
+<h1>Campus Marketplace</h1>
+
+<form method="GET" action="/shop" class="search-bar">
+  <input type="text" name="q" placeholder="Search products..." value="{{ request.args.get('q', '') }}">
+  <button type="submit">Search</button>
+</form>
+
+<div class="category-filters">
+  {% for cat in ['All', 'Electronics', 'Books', 'Fashion', 'Other'] %}
+    <a href="/shop?category={{ cat }}{% if request.args.get('q') %}&q={{ request.args.get('q') }}{% endif %}" 
+       class="category-btn {% if active_category == cat %}active{% endif %}">
+       {{ cat }}
+    </a>
+  {% endfor %}
+</div>
 
 <section class="listings-grid">
   {% for item in listings %}
   <div class="listing-card">
-    <img src="{{ item['image'] }}" alt="{{ item['name'] }}">
+    <img src="{{ url_for('static', filename=item['image']) }}" alt="{{ item['name'] }}">
     <h3>{{ item['name'] }}</h3>
-    <p>₦{{ item['price'] }}</p>
+    <span class="category-tag">{{ item['category'] }}</span>
+    <p class="price">₦{{ "%.2f"|format(item['price']) }}</p>
+    
+    {% if item['quantity'] > 0 %}
+      <a href="{{ url_for('product_detail', product_id=item['id']) }}" class="view-btn">
+        View Details
+      </a>
+    {% else %}
+      <button class="login-btn disabled" disabled>Sold Out</button>
+    {% endif %}
   </div>
   {% else %}
-  <p>No products available yet.</p>
+  <p style="text-align: center; grid-column: 1 / -1;">No products found in this category.</p>
   {% endfor %}
 </section>
 
+<script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Payout Requests</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="logo">Admin Dashboard</div>
+  <ul class="nav-links">
+    <li class="navbartxt"><a href="/shop">Shop</a></li>
+    <li class="navbartxt"><a href="/wallet">My Wallet</a></li>
+    <li class="navbartxt"><a href="/logout">Logout</a></li>
+  </ul>
+</nav>
+
+<div style="max-width: 1000px; margin: 40px auto; padding: 20px;">
+    <h2>Seller Withdrawal Requests</h2>
+
+    <table style="width: 100%; border-collapse: collapse; margin-top: 20px; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+        <thead>
+            <tr style="background-color: #f4f4f4; text-align: left; border-bottom: 2px solid #ddd;">
+                <th style="padding: 12px;">ID</th>
+                <th style="padding: 12px;">Seller</th>
+                <th style="padding: 12px;">Amount</th>
+                <th style="padding: 12px;">Bank Name</th>
+                <th style="padding: 12px;">Account Number</th>
+                <th style="padding: 12px;">Status</th>
+                <th style="padding: 12px;">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for req in requests %}
+            <tr style="border-bottom: 1px solid #eee;">
+                <td style="padding: 12px;">#{{ req['id'] }}</td>
+                <td style="padding: 12px;">{{ req['username'] }}<br><small style="color: #666;">{{ req['email'] }}</small></td>
+                <td style="padding: 12px; font-weight: bold; color: #2ea44f;">₦{{ "%.2f"|format(req['amount']) }}</td>
+                <td style="padding: 12px;">{{ req['bank_name'] }}</td>
+                <td style="padding: 12px;">{{ req['account_number'] }}</td>
+                <td style="padding: 12px;">
+                    {% if req['status'] == 'Pending' %}
+                        <span style="background: #fff3cd; color: #856404; padding: 4px 8px; border-radius: 4px; font-size: 0.85rem;">Pending</span>
+                    {% else %}
+                        <span style="background: #d4edda; color: #155724; padding: 4px 8px; border-radius: 4px; font-size: 0.85rem;">Completed</span>
+                    {% endif %}
+                </td>
+                <td style="padding: 12px;">
+                    {% if req['status'] == 'Pending' %}
+                        <form action="/admin/withdrawals/complete/{{ req['id'] }}" method="POST" style="margin: 0;">
+                            <button type="submit" style="background: #2ea44f; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer;">Mark Paid</button>
+                        </form>
+                    {% else %}
+                        <span style="color: #999;">Done</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="7" style="padding: 20px; text-align: center; color: #777;">No withdrawal requests found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
