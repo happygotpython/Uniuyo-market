@@ -905,7 +905,6 @@ h1 {
   width: 100%;
 }
 
-/* --- Theme Toggle Styling --- */
 #theme-toggle {
   background: transparent;
   border: none;
@@ -918,7 +917,7 @@ h1 {
   justify-content: center;
 }
 
-/* --- Mobile Responsiveness Adjustments --- */
+
 @media (max-width: 768px) {
   .navbar {
     flex-direction: column;
