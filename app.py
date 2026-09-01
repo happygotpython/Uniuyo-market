@@ -11,7 +11,7 @@ from datetime import datetime
 
 app = Flask(__name__)
 app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'dev-only-fallback-key-change-me')
-app.wsgi_app = WhiteNoise(app.wsgi_app, root='static/')
+app.wsgi_app = WhiteNoise(app.wsgi_app, root='static/', prefix='static/')
 
 
 UPLOAD_FOLDER = 'static/uploads'
