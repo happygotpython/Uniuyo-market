@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sell Item - UniUyo Market</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
 
@@ -21,7 +22,7 @@
       <li class="navbartxt"><a href="/signup">Sign Up</a></li>
     {% endif %}
     <li class="navbartxt"><a href="{{ url_for('wallet') }}">Wallet</a></li>
-    <li><button id="theme-toggle">🌙</button></li>
+    <li><button id="theme-toggle" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i></button></li>
   </ul>
 </nav>
 
