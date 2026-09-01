@@ -1,47 +1,97 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>UniUyo</title>
-     <meta charset="UTF-8">
+    <title>The Students Market</title>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
 <body class="homepage-background">
 
 <div class="announcement-bar">
-  Welcome to Uniuyo Market — Buy, Sell & Connect
+  Welcome to The Students Market — Buy, Sell & Connect
 </div>
-
 
 <nav class="navbar">
   <div class="logo">My Market</div>
   <ul class="nav-links">
-    <li class="navbartxt"><a href="shop">Shop</a></li>
-    <li class="navbartxt"><a href="post-roommate">Be A Roommate</a></li>
-    <li class="navbartxt"><a href="roommates">Roommates</a></li>
-    <li class="navbartxt"><a href="sell">Sell</a></li>
-    <li class="navbartxt"><a href="login">Login</a></li>
-    <li class="navbartxt"><a href="signup">Sign Up</a></li>
-    <li><button id="theme-toggle">🌙</button></li>
+    <li class="navbartxt"><a href="/shop">Shop</a></li>
+    <li class="navbartxt"><a href="/post-roommate">Be A Roommate</a></li>
+    <li class="navbartxt"><a href="/roommates">Roommates</a></li>
+    <li class="navbartxt"><a href="/sell">Sell</a></li>
+    {% if session.get('user_id') %}
+      <li class="navbartxt"><a href="/logout">Logout ({{ session['username'] }})</a></li>
+    {% else %}
+      <li class="navbartxt"><a href="/login">Login</a></li>
+      <li class="navbartxt"><a href="/signup">Sign Up</a></li>
+    {% endif %}
+    <li><button id="theme-toggle" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i></button></li>
   </ul>
 </nav>
 
-
 <section class="hero">
   <h1>Everything you need, from fellow students</h1>
-  <p>Buy and sell items easily within your campus community</p>
+  <p>Buy, sell, and find roommates — all within your campus community</p>
   <a href="/shop"><button class="login-btn">Browse Listings</button></a>
 </section>
 
-<section class="categories">
-  <div class="category-tile"><a href="electronics">Electronics</a></div>
-  <div class="category-tile"><a href="books">Books</a></div>
-  <div class="category-tile"><a href="fashion">Fashion</a></div>
-  <div class="category-tile"><a href="roommates">Roommates</a></div>
+<section class="features-section">
+  <h2 class="section-heading">What The Students Market Offers</h2>
+  <div class="features-grid">
+    <div class="feature-card">
+      <span class="feature-icon"><i class="fa-solid fa-cart-shopping"></i></span>
+      <h3>Buy & Sell</h3>
+      <p>List items in minutes and reach students across campus. From textbooks to electronics, find it or sell it fast.</p>
+      <a href="/shop" class="feature-link">Browse the Shop &rarr;</a>
+    </div>
+
+    <div class="feature-card">
+      <span class="feature-icon"><i class="fa-solid fa-house-user"></i></span>
+      <h3>Find Roommates</h3>
+      <p>Connect with fellow students by level and preferences — no more relying on word of mouth to find a place to stay.</p>
+      <a href="/roommates" class="feature-link">Find a Roommate &rarr;</a>
+    </div>
+
+    <div class="feature-card">
+      <span class="feature-icon"><i class="fa-solid fa-wallet"></i></span>
+      <h3>Secure Wallet</h3>
+      <p>Top up, buy, and get paid — all through a built-in wallet designed for safe, simple transactions between students.</p>
+      <a href="/wallet" class="feature-link">View Wallet &rarr;</a>
+    </div>
+
+    <div class="feature-card">
+      <span class="feature-icon"><i class="fa-solid fa-bolt"></i></span>
+      <h3>Fast & Simple</h3>
+      <p>No complicated setup. Sign up, list or browse, and connect — built specifically for the student community.</p>
+      <a href="/signup" class="feature-link">Get Started &rarr;</a>
+    </div>
+  </div>
 </section>
 
+<section class="categories">
+  <div class="category-tile"><a href="/shop?category=Electronics">Electronics</a></div>
+  <div class="category-tile"><a href="/shop?category=Books">Books</a></div>
+  <div class="category-tile"><a href="/shop?category=Fashion">Fashion</a></div>
+  <div class="category-tile"><a href="/roommates">Roommates</a></div>
+</section>
 
+<section class="listings-grid">
+  {% for item in listings %}
+  <div class="listing-card">
+    <img src="{{ url_for('static', filename=item['image']) }}" alt="{{ item['name'] }}">
+    <h3>{{ item['name'] }}</h3>
+    <p>₦{{ "%.2f"|format(item['price']) }}</p>
+  </div>
+  {% else %}
+  <p style="text-align:center; grid-column:1/-1;">No listings yet — be the first to sell!</p>
+  {% endfor %}
+</section>
+
+<footer class="site-footer">
+  <p>&copy; {{ current_year }} The Students Market. All rights reserved.</p>
+</footer>
 
 <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
