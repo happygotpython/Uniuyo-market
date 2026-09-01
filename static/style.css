@@ -334,6 +334,7 @@ h1 {
   margin-top: 30px;
   color: var(--text-color);
 }
+
 .error-message {
   color: #ff5252;
   background: rgba(255, 82, 82, 0.1);
@@ -344,6 +345,7 @@ h1 {
   margin-bottom: 16px;
   font-size: 14px;
 }
+
 .category-filters {
   display: flex;
   justify-content: center;
@@ -901,4 +903,52 @@ h1 {
   font-size: 13px;
   margin-top: 40px;
   width: 100%;
+}
+
+/* --- Theme Toggle Styling --- */
+#theme-toggle {
+  background: transparent;
+  border: none;
+  color: var(--text-color);
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* --- Mobile Responsiveness Adjustments --- */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    padding: 12px 16px;
+    gap: 10px;
+    text-align: center;
+  }
+
+  .nav-links {
+    justify-content: center;
+    gap: 8px 14px;
+    width: 100%;
+  }
+
+  .nav-links a {
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .hero {
+    padding: 40px 16px;
+  }
+
+  .hero h1 {
+    font-size: 24px;
+    line-height: 1.3;
+  }
+
+  .hero p {
+    font-size: 14px;
+    margin-bottom: 16px;
+  }
 }
